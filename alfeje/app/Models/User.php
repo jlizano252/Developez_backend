@@ -137,7 +137,7 @@ class User extends Authenticatable
     }
     public function roles()
     {
-        // return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
+        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
     }
 
     protected $guard_name = 'api';
