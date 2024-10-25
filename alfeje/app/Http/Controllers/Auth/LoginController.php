@@ -40,20 +40,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*public function login(Request $request)
+    public function login(Request $request)
     {
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
         ];
-
-        if (Auth::attempt($credentials)) {
+        
+       if (Auth::attempt($credentials)) {
             $user = Auth::user();
             //$userRole = $user->roles->first()->name;
             $userId = $user->id;
-            $token = $user->createToken('token');
+            $token = $user->createToken('tokenAccess');
             return response()->json([
-                'token' => $token,
+                'tokenAccess' => $token,
                // 'role' => $userRole,
                 'user_id' => $userId,
             ], 200);
@@ -65,5 +65,5 @@ class LoginController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json(['message' => 'Successfully logged out']);
-    }*/
+    }
 }

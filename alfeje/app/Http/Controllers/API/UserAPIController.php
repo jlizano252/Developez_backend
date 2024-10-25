@@ -44,11 +44,15 @@ class UserAPIController extends AppBaseController
      */
     public function store(CreateUserAPIRequest $request): JsonResponse
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $user = $this->userRepository->create($input);
-
-        return $this->sendResponse($user->toArray(), 'User saved successfully');
+            $user = $this->userRepository->create($input);
+            
+            return $this->sendResponse($user->toArray(), 'User saved successfully');
+        } catch (\Throwable $th) {
+            return $this->sendError('Error while saving user', $th->getMessage());
+        }
     }
 
     /**
