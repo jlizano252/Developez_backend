@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\UserAPIController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('oauth/token', [AccessTokenController::class, 'issueToken'])
+    ->middleware('throttle');
+
+Route::middleware('auth:api')->group(function () {
+
+    Route::resource('users', UserAPIController::class)
+        ->except(['create', 'edit']);
 });
