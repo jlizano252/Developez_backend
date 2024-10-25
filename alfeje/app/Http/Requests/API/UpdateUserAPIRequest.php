@@ -25,7 +25,8 @@ class UpdateUserAPIRequest extends APIRequest
     public function rules()
     {
         $rules = User::$rules;
-        
+        unset($rules['password']);
+        unset($rules['password_confirmation']);
         return $rules;
     }
 }
